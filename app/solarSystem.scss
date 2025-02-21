@@ -1,0 +1,163 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+$planet-names: mercury, venus, earth, mars, jupiter, saturn, uranus, neptune;
+
+$planet-diameter: 0.4878, 1.2104, 1.276, 0.6787, 3.84, 1.95, 1.812, 1.753;
+
+$orbit-time: 0.88, 2.25, 3.6525, 6.87, 43.46475, 107.74875, 306.81, 602.6625; //days divided by 100
+
+$planet-colors: #a1a1a1, #f5cc96, #495391, #b95730, #d5ba8e, #dab37a, #c4eaed,
+  #6393e5;
+
+%center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transform: translate(-50%, -50%);
+}
+
+article {
+  border-radius: 50%;
+  border: 0.2em solid rgba(white, 0.2);
+  height: 30em;
+  width: 30em;
+  @extend %center;
+  position: absolute;
+  transition: 1s transform ease-in-out;
+
+  section:hover &:before {
+    background: black;
+    color: #ccc;
+    position: absolute;
+    left: 50%;
+    margin-left: -2rem;
+    text-align: center;
+    top: -0.6rem;
+    width: 4rem;
+  }
+
+  div {
+    border-radius: 50%;
+    height: 100%;
+    position: relative;
+    width: 100%;
+
+    &:after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -1.5em;
+      height: 3em;
+      width: 3em;
+      margin-left: -1.5em;
+      border-radius: 50%;
+      background: blue;
+      box-shadow: inset 0 0.4rem 0.8rem rgba(black, 0.2),
+        inset 0 -0.4rem 0.4rem rgba(white, 0.2);
+    }
+  }
+}
+
+.saturn div:after {
+  box-shadow: 0 0 0 0.1em #000, 0 0 0.1em 0.5em #8f6200,
+    inset 0 0.4rem 0.8rem rgba(black, 0.2),
+    inset 0 -0.4rem 0.4rem rgba(white, 0.2);
+}
+
+@for $i from 1 through length($planet-names) {
+  .#{nth($planet-names, $i)} {
+    height: $i * 6rem;
+    width: $i * 6rem;
+
+    section:hover &:before {
+      content: "#{nth($planet-names, $i)}";
+    }
+
+    div {
+      animation: orbit nth($orbit-time, $i) + s linear infinite;
+    }
+
+    $half: -0.5rem;
+
+    div:after {
+      background: nth($planet-colors, $i);
+      height: nth($planet-diameter, $i) + rem;
+      margin-left: nth($planet-diameter, $i) * $half;
+      top: nth($planet-diameter, $i) * $half;
+      width: nth($planet-diameter, $i) + rem;
+    }
+  }
+}
+
+.sun {
+  background: yellow;
+  border-radius: 50%;
+  height: 3em;
+  box-shadow: 0 0 15px rgba(white, 0.8);
+  @extend %center;
+  transition: 1s transform ease-in-out;
+  width: 3em;
+}
+
+.slider {
+  margin-top: 100px;
+  transform: rotate(90deg);
+}
+
+input[type="range"] {
+  appearance: none !important;
+  background: #444;
+  height: 15px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none !important;
+  background: #6393e5;
+  height: 30px;
+  width: 15px;
+  border: 2px solid white;
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Mobile adjustments
+@media (max-width: 640px) {
+  .sun,
+  .mercury,
+  .venus,
+  .earth,
+  .mars,
+  .jupiter,
+  .saturn,
+  .uranus,
+  .neptune {
+    // Adjust sizes for mobile
+    transform: scale(0.5); // Example: scales down the size to 50%
+  }
+}
+
+// Media query for tablets
+@media (min-width: 641px) and (max-width: 1007px) {
+  .sun,
+  .mercury,
+  .venus,
+  .earth,
+  .mars,
+  .jupiter,
+  .saturn,
+  .uranus,
+  .neptune {
+    // Adjust sizes for tablets
+    transform: scale(0.75); // Example: scales down the size to 75%
+  }
+}
