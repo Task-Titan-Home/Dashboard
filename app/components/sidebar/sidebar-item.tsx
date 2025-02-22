@@ -2,12 +2,14 @@ import NextLink from "next/link";
 import React from "react";
 import { useSidebarContext } from "../layout/layout-context";
 import clsx from "clsx";
+import { string } from "yup";
 
 interface Props {
   title: string;
   icon: React.ReactNode;
   isActive?: boolean;
   href?: string;
+  className?: string;
 }
 
 export const SidebarItem = ({ icon, title, isActive, href = "" }: Props) => {
