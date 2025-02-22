@@ -8,6 +8,7 @@ interface Props {
   icon: React.ReactNode;
   title: string;
   items: string[];
+  className?: string;
 }
 //
 export const CollapseItems = ({ icon, items, title }: Props) => {
