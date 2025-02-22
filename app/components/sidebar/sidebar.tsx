@@ -1,140 +1,165 @@
+// FULL CODE SNIPPET
+// File: SidebarWrapper.tsx
+
+"use client";
+
 import React from "react";
+import Image from "next/image"; // <-- Import Next.js Image
 import { Sidebar } from "./sidebar.styles";
 import { Avatar, Tooltip } from "@nextui-org/react";
-import { CompaniesDropdown } from "./companies-dropdown";
-import { HomeIcon } from "../icons/sidebar/home-icon";
-import { PaymentsIcon } from "../icons/sidebar/payments-icon";
-import { BalanceIcon } from "../icons/sidebar/balance-icon";
-import { AccountsIcon } from "../icons/sidebar/accounts-icon";
-import { CustomersIcon } from "../icons/sidebar/customers-icon";
-import { ProductsIcon } from "../icons/sidebar/products-icon";
+import {
+  HomeIcon,
+  TasksIcon,
+  KanbanIcon,
+  AiToolsIcon,
+  CalendarIcon,
+  IntegrationsIcon,
+} from "../icons/sidebar/sidebar-icons";
 import { ReportsIcon } from "../icons/sidebar/reports-icon";
-import { DevIcon } from "../icons/sidebar/dev-icon";
-import { ViewIcon } from "../icons/sidebar/view-icon";
 import { SettingsIcon } from "../icons/sidebar/settings-icon";
-import { CollapseItems } from "./collapse-items";
+import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
+import { FilterIcon } from "../icons/sidebar/filter-icon";
+
 import { SidebarItem } from "./sidebar-item";
 import { SidebarMenu } from "./sidebar-menu";
-import { FilterIcon } from "../icons/sidebar/filter-icon";
+import { CollapseItems } from "./collapse-items";
+
 import { useSidebarContext } from "../layout/layout-context";
-import { ChangeLogIcon } from "../icons/sidebar/changelog-icon";
 import { usePathname } from "next/navigation";
+
+import Logo from "../../../public/img/logo.png";
 
 export const SidebarWrapper = () => {
   const pathname = usePathname();
   const { collapsed, setCollapsed } = useSidebarContext();
 
+  // Helper to check active route
+  const isActive = (route: string) => route === pathname;
+
   return (
-    <aside className=" border-r-1 border-zinc-800 h-screen z-[202] sticky top-0">
-      {collapsed ? (
+    <aside className="md:sticky md:top-0 md:h-screen z-[202]">
+      {/* Overlay for mobile */}
+      {collapsed && (
         <div className={Sidebar.Overlay()} onClick={setCollapsed} />
-      ) : null}
-      <div
-        className={Sidebar({
-          collapsed: collapsed,
-        })}
-      >
+      )}
+
+      {/* Sidebar main container */}
+      <div className={Sidebar({ collapsed })}>
+        {/* Header */}
         <div className={Sidebar.Header()}>
-          <CompaniesDropdown />
+          {/* Next.js Image instead of <img> */}
+          <Image
+            src={Logo}
+            alt="Task Titan Logo"
+            width={64}
+            height={64}
+            className="mr-2 object-contain  rounded-lg"
+            priority // (Optional) to hint that it’s important for LCP
+          />
+          <h1 className="font-bold text-white text-xl">Task Titan</h1>
         </div>
-        <div className="flex flex-col justify-between h-full text-white">
-          <div className={Sidebar.Body()}>
-            <SidebarItem
-              title="Home"
-              icon={<HomeIcon />}
-              isActive={pathname === "/dashboard"}
-              href="dashboard"
-              className="text-white"
+
+        {/* Body */}
+        <div className={Sidebar.Body()}>
+          {/* Search bar */}
+          <div className="mb-2 relative">
+            <input
+              type="text"
+              placeholder="Search tasks..."
+              className="w-full px-3 py-2 rounded bg-neutral-900 text-sm text-gray-100 placeholder-gray-400 
+                         focus:outline-none focus:ring-1 focus:ring-purple-600"
             />
-            <SidebarMenu title="Main Menu" className="text-white">
-              <SidebarItem
-                isActive={pathname === "/accounts"}
-                title="Accounts"
-                icon={<AccountsIcon />}
-                href="accounts"
-                className="text-white"
-              />
-              <SidebarItem
-                isActive={pathname === "/projects"}
-                title="Projects"
-                icon={<PaymentsIcon />}
-                href="projects"
-                className="text-white"
-              />
-              <CollapseItems
-                icon={<BalanceIcon />}
-                items={["Banks Accounts", "Credit Cards", "Loans"]}
-                title="Workspace"
-                className="text-white"
-              />
-              <SidebarItem
-                isActive={pathname === "/customers"}
-                title="Customers"
-                icon={<CustomersIcon />}
-                className="text-white"
-              />
-              <SidebarItem
-                isActive={pathname === "/products"}
-                title="Products"
-                icon={<ProductsIcon />}
-                className="text-white"
-              />
-              <SidebarItem
-                isActive={pathname === "/reports"}
-                title="Reports"
-                icon={<ReportsIcon />}
-                className="text-white"
-              />
-            </SidebarMenu>
-
-            <SidebarMenu title="General" className="text-white">
-              <SidebarItem
-                isActive={pathname === "/developers"}
-                title="Developers"
-                icon={<DevIcon />}
-                className="text-white"
-              />
-              <SidebarItem
-                isActive={pathname === "/view"}
-                title="View Test Data"
-                icon={<ViewIcon />}
-                className="text-white"
-              />
-              <SidebarItem
-                isActive={pathname === "/settings"}
-                title="Settings"
-                icon={<SettingsIcon />}
-                className="text-white"
-              />
-            </SidebarMenu>
-
-            <SidebarMenu title="Updates" className="text-white">
-              <SidebarItem
-                isActive={pathname === "/changelog"}
-                title="Changelog"
-                icon={<ChangeLogIcon />}
-                className="text-white"
-              />
-            </SidebarMenu>
           </div>
-          <div className={Sidebar.Footer()}>
-            <Tooltip content={"Settings"} color="primary">
-              <div className="max-w-fit">
-                <SettingsIcon />
-              </div>
-            </Tooltip>
-            <Tooltip content={"Adjustments"} color="primary">
-              <div className="max-w-fit">
-                <FilterIcon />
-              </div>
-            </Tooltip>
-            <Tooltip content={"Profile"} color="primary">
-              <Avatar
-                src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-                size="sm"
-              />
-            </Tooltip>
-          </div>
+
+          <SidebarItem
+            title="Dashboard"
+            icon={<HomeIcon />}
+            href="dashboard"
+            isActive={isActive("/dashboard")}
+          />
+
+          <SidebarMenu title="Projects">
+            <SidebarItem
+              title="All Projects"
+              icon={<KanbanIcon />}
+              href="projects"
+              isActive={isActive("/projects")}
+            />
+            <CollapseItems
+              title="Tasks"
+              icon={<TasksIcon />}
+              items={["My Tasks", "Team Tasks", "Archived Tasks"]}
+            />
+            <SidebarItem
+              title="Calendar"
+              icon={<CalendarIcon />}
+              href="calendar"
+              isActive={isActive("/calendar")}
+            />
+            <SidebarItem
+              title="AI Tools"
+              icon={<AiToolsIcon />}
+              href="ai-tools"
+              isActive={isActive("/ai-tools")}
+            />
+          </SidebarMenu>
+
+          <SidebarMenu title="Analytics">
+            <SidebarItem
+              title="Reports"
+              icon={<ReportsIcon />}
+              href="reports"
+              isActive={isActive("/reports")}
+            />
+          </SidebarMenu>
+
+          <SidebarMenu title="Integrations">
+            <SidebarItem
+              title="Manage Integrations"
+              icon={<IntegrationsIcon />}
+              href="integrations"
+              isActive={isActive("/integrations")}
+            />
+          </SidebarMenu>
+
+          <SidebarMenu title="General">
+            <SidebarItem
+              title="Settings"
+              icon={<SettingsIcon />}
+              href="settings"
+              isActive={isActive("/settings")}
+            />
+          </SidebarMenu>
+
+          <SidebarMenu title="Updates">
+            <SidebarItem
+              title="Changelog"
+              icon={<ChangeLogIcon />}
+              href="changelog"
+              isActive={isActive("/changelog")}
+            />
+          </SidebarMenu>
+        </div>
+
+        {/* Footer */}
+        <div className={Sidebar.Footer()}>
+          <Tooltip content="Settings" color="primary">
+            <div className="p-2 rounded hover:bg-neutral-800 cursor-pointer transition-colors">
+              <SettingsIcon />
+            </div>
+          </Tooltip>
+          <Tooltip content="Filters" color="primary">
+            <div className="p-2 rounded hover:bg-neutral-800 cursor-pointer transition-colors">
+              <FilterIcon />
+            </div>
+          </Tooltip>
+          <Tooltip content="Profile" color="primary">
+            <Avatar
+              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
+              size="sm"
+              className="cursor-pointer hover:ring-2 hover:ring-purple-600 transition-all"
+            />
+          </Tooltip>
         </div>
       </div>
     </aside>

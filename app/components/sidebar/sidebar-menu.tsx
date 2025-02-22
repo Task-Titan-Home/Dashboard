@@ -3,6 +3,7 @@ import React from "react";
 interface Props {
   title: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
 export const SidebarMenu = ({ title, children }: Props) => {
