@@ -1,0 +1,97 @@
+/* Base dark background for the entire calendar wrapper */
+.rbc-dark {
+  --rbc-bg: #131313; /* background for month/week/day cells */
+  --rbc-hover-bg: #3c3c52; /* hover background */
+  --rbc-text: #ffffff; /* text color */
+  --rbc-border: #3f3f54; /* border color */
+  --rbc-accent: #1f1f1f; /* dark accent color, no purple */
+}
+
+/* Toolbar (Month/Week/Day, navigation) */
+.rbc-dark .rbc-toolbar {
+  background-color: #000000;
+  color: var(--rbc-text);
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+}
+
+.rbc-dark .rbc-btn-group button {
+  background: transparent;
+  border: none;
+  color: #303030;
+  margin: 0 2px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.rbc-dark .rbc-btn-group button:hover {
+  background: var(--rbc-hover-bg);
+  color: #424242;
+}
+
+.rbc-dark .rbc-toolbar-label {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+/* Month/Week/Day views */
+.rbc-dark .rbc-month-view,
+.rbc-dark .rbc-time-view,
+.rbc-dark .rbc-agenda-view {
+  background-color: var(--rbc-bg);
+  color: var(--rbc-text);
+}
+
+/* Individual day cells */
+.rbc-dark .rbc-day-bg {
+  border: 1px solid var(--rbc-border);
+  transition: background 0.15s;
+}
+.rbc-dark .rbc-day-bg:hover {
+  background-color: var(--rbc-hover-bg);
+}
+
+/* Today highlight */
+.rbc-dark .rbc-day-bg.rbc-today {
+  background-color: rgba(156, 163, 175, 0.2); /* subtle highlight */
+  border-left: 2px solid var(--rbc-accent);
+}
+
+/* Selected slot highlight */
+.rbc-dark .rbc-slot-selection {
+  background-color: #1d1d1d;
+  border: 1px dashed var(--rbc-accent);
+}
+
+/* Events */
+.rbc-dark .rbc-event {
+  background-color: #353535; /* dark gray */
+  border: none;
+  color: #3f3f3f;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background 0.15s;
+}
+.rbc-dark .rbc-event:hover {
+  background-color: #262627; /* a bit darker on hover */
+}
+
+/* Time slots & lines */
+.rbc-dark .rbc-time-view .rbc-time-header-cell,
+.rbc-dark .rbc-time-view .rbc-timeslot-group {
+  border-color: var(--rbc-border);
+}
+
+.rbc-dark .rbc-time-gutter {
+  background-color: #1f1f2f;
+  border-right: 1px solid var(--rbc-border);
+}
+
+/* Hide default box-shadow on events */
+.rbc-dark .rbc-addons-dnd .rbc-event-drag-preview {
+  box-shadow: none;
+}
