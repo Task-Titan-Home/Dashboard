@@ -7,7 +7,6 @@ import Features from "./components/feautres";
 import ProfessionalFooter from "./components/ProfessionalFooter";
 import SpaceBackground from "./components/SpaceBackground";
 import IncidentManagement from "./components/IncidentManagement";
-import IPhoneShowcase from "./components/IPhoneShowcase";
 import IPhoneFramedInterface from "./components/IPhoneFramedInterface";
 import { Button } from "@nextui-org/react";
 import NextLink from "next/link";
@@ -772,9 +771,6 @@ export default function Home() {
 
       {/* iPhone Framed Interface */}
       <IPhoneFramedInterface />
-
-      {/* iPhone Showcase Section */}
-      <IPhoneShowcase />
 
       {/* Professional Footer */}
       <ProfessionalFooter />
