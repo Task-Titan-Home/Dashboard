@@ -36,9 +36,45 @@ body {
   display: none;  /* Safari and Chrome */
 }
 
+/* Custom gradient utilities */
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  
+  /* Responsive container utilities */
+  .container-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Mobile-first responsive text utilities */
+  .text-responsive-xl {
+    @apply text-lg sm:text-xl md:text-2xl;
+  }
+  
+  .text-responsive-2xl {
+    @apply text-xl sm:text-2xl md:text-3xl lg:text-4xl;
+  }
+  
+  .text-responsive-3xl {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  .text-responsive-4xl {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+  }
+  
+  /* Responsive spacing utilities */
+  .section-spacing {
+    @apply mt-16 sm:mt-20 md:mt-24 lg:mt-32;
+  }
+  
+  .section-spacing-bottom {
+    @apply mb-12 sm:mb-16 md:mb-20 lg:mb-24;
   }
 }
 
